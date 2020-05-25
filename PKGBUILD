@@ -1,29 +1,22 @@
 # Maintainer: secret
 
 pkgname=super-mario-64
-pkgver=1.0
+pkgver=1.1
 pkgrel=1
 pkgdesc="Native Linux port of Super Mario 64"
 arch=('x86_64')
-url="https://github.com/n64decomp/sm64"
+url="https://github.com/sm64pc/sm64pc"
 license=('none')
 depends=(glfw-x11)
 makedepends=(git python audiofile mips64-elf-binutils qemu-irix-git)
 provides=()
 conflicts=()
-source=("git+https://github.com/n64decomp/sm64"
-        "mario64.patch")
-md5sums=('SKIP'
-	 'SKIP')
-
-prepare() {
-	cd ${srcdir}/sm64
-	patch --forward --strip=1 --input="${srcdir}/mario64.patch"
-}
+source=("git+https://github.com/sm64pc/sm64pc")
+md5sums=('SKIP')
 
 build() {
 	cd ${srcdir}/sm64
-	make PREFIX=/usr TARGET_N64=0 -j$(nproc)
+	make PREFIX=/usr TARGET_N64=0 BETTERCAMERA=1 -j$(nproc)
 }
 
 package() {
